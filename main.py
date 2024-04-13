@@ -1,11 +1,13 @@
-import datetime
 from database.database import (
     create_brms_table,
 )
 from utils.data_handler import handle_received_data
+from utils.date_utils import get_date_range
 
-current_date = datetime.datetime.today().strftime("%Y-%m-%d")
-date = "2024-04-08"
+NUMBER_OF_DAYS_TO_PULL = 2
 
 create_brms_table()
-handle_received_data(date)
+
+dates = get_date_range(NUMBER_OF_DAYS_TO_PULL)
+for date in dates:
+    handle_received_data(date)

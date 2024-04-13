@@ -1,7 +1,6 @@
 from typing import Any, List
 import psycopg
 
-from api_requests.api_requests import get_api_data
 from config import (
     DATABASE_HOST,
     DATABASE_PORT,
