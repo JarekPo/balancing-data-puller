@@ -1,0 +1,49 @@
+name: Push-to-EC2
+
+# Trigger deployment only on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to EC2 on main branch push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to AWS
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+          BRMS_URL: ${{ secrets.BRMS_URL }}
+
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.TARGET_DIR }}
+            docker stop $(docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGE_NAME }}") || true
+            docker rm $(docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGE_NAME }}") || true
+            docker build --build-arg DATABASE_NAME=${DATABASE_NAME} \
+              --build-arg DATABASE_USER=${DATABASE_USER} \
+              --build-arg DATABASE_PASSWORD=${DATABASE_PASSWORD} \
+              --build-arg DATABASE_HOST=${DATABASE_HOST} \
+              --build-arg DATABASE_PORT=${DATABASE_PORT} \
+              --build-arg BRMS_URL=${BRMS_URL} \
+              -t ${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+            docker run -p 8000:80 -d ${{ secrets.DOCKER_IMAGE_NAME }}:latest
