@@ -9,6 +9,8 @@ from config import (
     DATABASE_NAME,
 )
 
+print(DATABASE_HOST, DATABASE_PORT, DATABASE_PASSWORD, DATABASE_USER, DATABASE_NAME)
+
 
 def create_brms_table() -> None:
     with psycopg.connect(
