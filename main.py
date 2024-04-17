@@ -16,7 +16,7 @@ def main() -> None:
     for date in dates:
         handle_received_data(date)
 
-    set_cron_job()
+    # set_cron_job()
 
 
 if __name__ == "__main__":
