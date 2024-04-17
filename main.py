@@ -1,7 +1,5 @@
 from datetime import datetime
-from fcntl import LOCK_EX, LOCK_NB, flock
 import logging
-import time
 from database.database import (
     create_brms_table,
 )
@@ -23,13 +21,8 @@ def main() -> None:
     for date in dates:
         handle_received_data(date)
 
-    set_cron_job()
+    # set_cron_job()
 
 
 if __name__ == "__main__":
-    with open("/app/main.lock", "w") as lockfile:
-        try:
-            flock(lockfile, LOCK_EX | LOCK_NB)
-            main()
-        except BlockingIOError:
-            logging.debug("Another instance is running, exiting...")
+    main()
