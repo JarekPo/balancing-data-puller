@@ -3,7 +3,7 @@ from crontab import CronTab
 
 
 def set_cron_job() -> None:
-    cron = CronTab(user=False)
+    cron = CronTab(user=True)
     script_path = os.path.abspath(os.path.dirname(__file__))
     main_script_path = os.path.join(script_path, "..", "main.py")
 
@@ -14,3 +14,5 @@ def set_cron_job() -> None:
 
     cron_file_path = os.path.expanduser("~/.crontab.txt")
     cron.write_to_user(cron_file_path)
+
+    os.chmod(cron_file_path, 0o600)
