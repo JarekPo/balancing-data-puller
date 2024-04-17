@@ -5,10 +5,30 @@ from utils.cron_manager import set_cron_job
 from utils.data_handler import handle_received_data
 from utils.date_utils import get_date_range
 
+from config import (
+    DATABASE_HOST,
+    DATABASE_PORT,
+    DATABASE_PASSWORD,
+    DATABASE_USER,
+    DATABASE_NAME,
+)
+
 NUMBER_OF_DAYS_TO_PULL = 2
 
 
 def main() -> None:
+    print(
+        "DATABASE_HOST:",
+        DATABASE_HOST,
+        "DATABASE_PORT:",
+        DATABASE_PORT,
+        "DATABASE_PASSWORD:",
+        DATABASE_PASSWORD,
+        "DATABASE_USER:",
+        DATABASE_USER,
+        "DATABASE_NAME:",
+        DATABASE_NAME,
+    )
     create_brms_table()
 
     dates = get_date_range(NUMBER_OF_DAYS_TO_PULL)
