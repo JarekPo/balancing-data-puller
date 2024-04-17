@@ -1,3 +1,5 @@
+from datetime import datetime
+import logging
 import time
 from database.database import (
     create_brms_table,
@@ -11,6 +13,9 @@ NUMBER_OF_DAYS_TO_PULL = 2
 
 
 def main() -> None:
+    now = datetime.now()
+    logging.debug("time: ", now)
+
     create_brms_table()
 
     dates = get_date_range(NUMBER_OF_DAYS_TO_PULL)
@@ -21,10 +26,10 @@ def main() -> None:
 
     while True:
         try:
-            print("Container running...")
+            logging.debug("****Container running...")
             time.sleep(60)
         except KeyboardInterrupt:
-            print("Container stopped")
+            logging.debug("Container stopped")
             break
 
 
