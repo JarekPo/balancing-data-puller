@@ -15,11 +15,9 @@ def main() -> None:
 
     dates = get_date_range(NUMBER_OF_DAYS_TO_PULL)
     for date in dates:
-        print("****for in main")
         handle_received_data(date)
 
     set_cron_job()
-    print("****after cron")
 
     while True:
         try:

@@ -23,11 +23,11 @@ def set_cron_job() -> None:
 
         os.system(f"crontab -u root {cron_file_path}")
 
-        print("**cron executed")
         logging.debug("****cron executed logging")
+        print(cron.render())
+        logging.debug(cron.render())
 
     except Exception as e:
-        print(f"An error occurred in print: {e}")
         logging.error(f"An error occurred: {e}")
 
 
