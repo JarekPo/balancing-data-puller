@@ -28,6 +28,7 @@ jobs:
           DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
           DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
           BRMS_URL: ${{ secrets.BRMS_URL }}
+          DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
 
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
@@ -45,13 +46,13 @@ jobs:
             export DATABASE_PORT=${{ secrets.DATABASE_PORT }}
             export BRMS_URL=${{ secrets.BRMS_URL }}
 
-            docker stop $(docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGE_NAME }}") || true
-            docker rm $(docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGE_NAME }}") || true
+            docker stop $(docker ps -q --filter "ancestor=${{ DOCKER_IMAGE_NAME }}") || true
+            docker rm $(docker ps -q --filter "ancestor=${{ DOCKER_IMAGE_NAME }}") || true
             docker build --build-arg DATABASE_NAME=${DATABASE_NAME} \
               --build-arg DATABASE_USER=${DATABASE_USER} \
               --build-arg DATABASE_PASSWORD=${DATABASE_PASSWORD} \
               --build-arg DATABASE_HOST=${DATABASE_HOST} \
               --build-arg DATABASE_PORT=${DATABASE_PORT} \
               --build-arg BRMS_URL=${BRMS_URL} \
-              -t ${{ secrets.DOCKER_IMAGE_NAME }}:latest .
-            docker run -p 8000:80 -d ${{ secrets.DOCKER_IMAGE_NAME }}:latest
+              -t ${{ DOCKER_IMAGE_NAME }}:latest .
+            docker run -p 8000:80 -d ${{ DOCKER_IMAGE_NAME }}:latest
