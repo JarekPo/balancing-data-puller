@@ -14,7 +14,7 @@ NUMBER_OF_DAYS_TO_PULL = 2
 
 def main() -> None:
     now = datetime.now()
-    logging.debug("time: ", now)
+    logging.debug("time: " + str(now))
 
     create_brms_table()
 
