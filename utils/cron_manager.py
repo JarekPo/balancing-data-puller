@@ -12,9 +12,9 @@ def set_cron_job() -> None:
     job.minute.on(0)
     job.hour.every(1)
 
-    cron_file_path = "/tmp/crontab.txt"
+    cron_file_path = "/root/.crontab.txt"
     cron.write(cron_file_path)
 
-    os.system(f"sudo crontab -u root {cron_file_path}")
+    os.chmod(cron_file_path, 0o600)
 
-    os.remove(cron_file_path)
+    os.system(f"crontab -u root {cron_file_path}")
