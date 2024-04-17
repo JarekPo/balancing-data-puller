@@ -10,4 +10,5 @@ def get_api_data(date: str) -> Any:
     print("url_with_date", url_with_date)
     response = requests.get(url_with_date)
     data = response.json()
+    print("***data", data)
     return data
