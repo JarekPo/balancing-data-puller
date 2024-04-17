@@ -14,7 +14,7 @@ def set_cron_job() -> None:
         job = cron.new(command=f"python3 {main_script_path}")
 
         job.minute.on(0)
-        job.hour.every(1)
+        job.minute.every(1)
 
         cron_file_path = "/root/.crontab.txt"
         cron.write(cron_file_path)
