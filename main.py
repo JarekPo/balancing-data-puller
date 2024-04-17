@@ -24,13 +24,13 @@ def main() -> None:
 
     set_cron_job()
 
-    while True:
-        try:
-            logging.debug("****Container running...")
-            time.sleep(60)
-        except KeyboardInterrupt:
-            logging.debug("Container stopped")
-            break
+    # while True:
+    #     try:
+    #         logging.debug("****Container running...")
+    #         time.sleep(60)
+    #     except KeyboardInterrupt:
+    #         logging.debug("Container stopped")
+    #         break
 
 
 if __name__ == "__main__":

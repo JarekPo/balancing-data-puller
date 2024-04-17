@@ -9,7 +9,7 @@ def set_cron_job() -> None:
     try:
         cron = CronTab(user=True)
 
-        main_script_path = "/main.py"
+        main_script_path = "/app/main.py"
 
         job = cron.new(command=f"python3 {main_script_path}")
 
