@@ -8,8 +8,8 @@ logging.basicConfig(level=logging.DEBUG)
 def set_cron_job() -> None:
     try:
         cron = CronTab(user=True)
-        script_path = os.path.abspath(os.path.dirname(__file__))
-        main_script_path = os.path.join(script_path, "..", "main.py")
+
+        main_script_path = "/app/main.py"
 
         job = cron.new(command=f"python3 {main_script_path}")
 
