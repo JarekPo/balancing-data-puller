@@ -37,6 +37,14 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.TARGET_DIR }}
+
+            export DATABASE_NAME=${{ secrets.DATABASE_NAME }}
+            export DATABASE_USER=${{ secrets.DATABASE_USER }}
+            export DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+            export DATABASE_HOST=${{ secrets.DATABASE_HOST }}
+            export DATABASE_PORT=${{ secrets.DATABASE_PORT }}
+            export BRMS_URL=${{ secrets.BRMS_URL }}
+
             docker stop $(docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGE_NAME }}") || true
             docker rm $(docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGE_NAME }}") || true
             docker build --build-arg DATABASE_NAME=${secrets.DATABASE_NAME} \
