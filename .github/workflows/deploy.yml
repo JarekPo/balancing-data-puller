@@ -47,6 +47,9 @@ jobs:
             export BRMS_URL=${{ secrets.BRMS_URL }}
             export DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}
 
+            docker stop $DOCKER_IMAGE_NAME
+            docker rm $DOCKER_IMAGE_NAME
+
             docker build --build-arg DATABASE_NAME=${DATABASE_NAME} \
               --build-arg DATABASE_USER=${DATABASE_USER} \
               --build-arg DATABASE_PASSWORD=${DATABASE_PASSWORD} \
