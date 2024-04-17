@@ -9,21 +9,21 @@ from config import (
     DATABASE_NAME,
 )
 
-print(
-    "DATABASE_HOST:",
-    DATABASE_HOST,
-    "DATABASE_PORT:",
-    DATABASE_PORT,
-    "DATABASE_PASSWORD:",
-    DATABASE_PASSWORD,
-    "DATABASE_USER:",
-    DATABASE_USER,
-    "DATABASE_NAME:",
-    DATABASE_NAME,
-)
-
 
 def create_brms_table() -> None:
+
+    print(
+        "DATABASE_HOST:",
+        DATABASE_HOST,
+        "DATABASE_PORT:",
+        DATABASE_PORT,
+        "DATABASE_PASSWORD:",
+        DATABASE_PASSWORD,
+        "DATABASE_USER:",
+        DATABASE_USER,
+        "DATABASE_NAME:",
+        DATABASE_NAME,
+    )
     with psycopg.connect(
         dbname=DATABASE_NAME,
         user=DATABASE_USER,
