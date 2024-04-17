@@ -54,4 +54,11 @@ jobs:
               --build-arg DATABASE_PORT=${DATABASE_PORT} \
               --build-arg BRMS_URL=${BRMS_URL} \
               -t $DOCKER_IMAGE_NAME:latest .
-            docker run -p 8000:80 -d $DOCKER_IMAGE_NAME:latest
+
+            docker run -p 8000:80 -e DATABASE_NAME=${DATABASE_NAME} \
+              -e DATABASE_USER=${DATABASE_USER} \
+              -e DATABASE_PASSWORD=${DATABASE_PASSWORD} \
+              -e DATABASE_HOST=${DATABASE_HOST} \
+              -e DATABASE_PORT=${DATABASE_PORT} \
+              -e BRMS_URL=${BRMS_URL} \
+              -d $DOCKER_IMAGE_NAME:latest
