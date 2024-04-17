@@ -1,3 +1,4 @@
+import time
 from database.database import (
     create_brms_table,
 )
@@ -17,8 +18,16 @@ def main() -> None:
         print("****for in main")
         handle_received_data(date)
 
-    # set_cron_job()
+    set_cron_job()
     print("****after cron")
+
+    while True:
+        try:
+            print("Container running...")
+            time.sleep(60)
+        except KeyboardInterrupt:
+            print("Container stopped")
+            break
 
 
 if __name__ == "__main__":
